@@ -88,7 +88,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					diffdays := timeStamp.Sub(lmp).Hours() / 24
 					pWeek := strconv.Itoa(int(diffdays / 7))
 					pDays := strconv.Itoa(int(math.Mod(diffdays, 7)))
-					rtnMsg = lmp.String() + "@@" + pWeek + "週" + pDays + "天"
+					rtnMsg = timeStamp.String() + "@@" + lmp.String() + "@@" + pWeek + "週" + pDays + "天"
 				}				
 				
 				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(rtnMsg)).Do(); err != nil {
