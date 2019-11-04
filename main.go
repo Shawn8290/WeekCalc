@@ -83,8 +83,8 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					lmp, err := time.Parse(timeStamp, msgContent)
 					lmp.AddDate(0, 0, 14)
 					diffdays := timeStamp.Sub(lmp).Hours() / 24
-					pWeek := math.Floor(diffdays / 7)
-					pDays := int(diffdays % 7)
+					pWeek := strconv.Itoa(math.Floor(diffdays / 7))
+					pDays := strconv.Itoa(int(diffdays % 7))
 					rtnMsg = pWeek + "週" ＋ pDays + "天"
 				}				
 				
