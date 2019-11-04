@@ -80,7 +80,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					msgContent = strings.Trim(msgContent, " ")
 					msgContent = strings.Trim(msgContent, "　")
 					timeStamp := time.Now()
-					lmp, err := time.Parse(timeStamp, msgContent)
+					lmp, err := time.Parse(timeStamp.String(), msgContent)
 					lmp.AddDate(0, 0, 14)
 					diffdays := timeStamp.Sub(lmp).Hours() / 24
 					pWeek := strconv.Itoa(math.Floor(diffdays / 7))
