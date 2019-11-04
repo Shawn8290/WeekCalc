@@ -82,6 +82,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					msgContent = strings.Trim(msgContent, "　")
 					timeStamp := time.Now()
 					lmp := time.Now()
+					timeStamp, err = time.Parse("20060102", timeStamp.String())
 					lmp, err = time.Parse("20060102", msgContent)
 					lmp.AddDate(0, 0, 14)
 					diffdays := timeStamp.Sub(lmp).Hours() / 24
