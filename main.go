@@ -20,7 +20,6 @@ import (
 	"strings"
 	"strconv"
 	"time"
-	"math"
 
 	"github.com/line/line-bot-sdk-go/linebot"
 )
