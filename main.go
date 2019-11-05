@@ -90,14 +90,16 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 						msgContent = strconv.Itoa(year) + msgContent
 					}
 
+					isTaiwanYear := false
 					if (len(msgContent) == 7) {
-						msgContent = "0" + msgContent					
+						msgContent = "0" + msgContent	
+						isTaiwanYear = true
 					}
 
 					input, err = time.Parse("20060102", msgContent)
 
 					// 民國轉西元
-					if (len(msgContent) == 7) {
+					if (isTaiwanYear) {
 						lmp = input.AddDate(1911, 0, 0)
 					} else {
 						lmp = input
