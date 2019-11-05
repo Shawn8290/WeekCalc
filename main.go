@@ -83,9 +83,14 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					
 					timeStamp := time.Now().UTC()
 					input := time.Now().UTC()
+					year := timeStamp.Year()
 
+					if (len(msgContent) == 4)
+					{
+						msgContent = year + msgContent
+					}
 					input, err = time.Parse("20060102", msgContent)
-					lmp := input.AddDate(0, 0, 14)
+					// lmp := input.AddDate(0, 0, 14)
 					
 					diffdays := timeStamp.Sub(lmp).Hours() / 24
 					pWeek := strconv.Itoa(int(diffdays / 7))
