@@ -98,15 +98,14 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 
 					input, err = time.Parse("20060102", msgContent)
 
+					// 預產期
+					bday := input.AddDate(0, 9, 7)
 					// 民國轉西元
 					if (isTaiwanYear) {
 						lmp = input.AddDate(1911, 0, 0)
 					} else {
 						lmp = input
-					}
-
-					// 預產期
-					bday := lmp.AddDate(0, 9, 7)
+					}					
 					
 					diffdays := today.Sub(lmp).Hours() / 24
 					pWeek := strconv.Itoa(int(diffdays / 7))
