@@ -99,11 +99,11 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					if (int(diffdays / 7) < 0) {
 						msg = "未來人？\n"
 					}
-					if (int(diffdays / 7) > 38) {
+					if (int(diffdays / 7) > 40) {
 						msg = "該生了吧？\n"
 					}
 
-					rtnMsg = msg + pWeek + "週" + pDays + "天\n預產期為" + bday.Format("2006/01/02")
+					rtnMsg = msg + "已妊娠 " + pWeek + "週 " + pDays + "天\n預產期為" + bday.Format("2006/01/02")
 				}				
 				
 				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(rtnMsg)).Do(); err != nil {
