@@ -86,7 +86,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					year := timeStamp.Year()
 
 					if (len(msgContent) == 4) {
-						msgContent = year + msgContent
+						msgContent = strconv.Itoa(year) + msgContent
 					}
 					input, err = time.Parse("20060102", msgContent)
 					// lmp := input.AddDate(0, 0, 14)
