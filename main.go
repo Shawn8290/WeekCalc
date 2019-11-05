@@ -85,13 +85,12 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 
 					input, err = time.Parse("20060102", msgContent)
 					lmp := input.AddDate(0, 0, 14)
-					/*
+					
 					diffdays := timeStamp.Sub(lmp).Hours() / 24
 					pWeek := strconv.Itoa(int(diffdays / 7))
 					pDays := strconv.Itoa(int(math.Mod(diffdays, 7)))
-					*/
-					rtnMsg = timeStamp.String() + "@@" + lmp.String()
-					//rtnMsg = pWeek + "週" + pDays + "天"
+					
+					rtnMsg = pWeek + "週" + pDays + "天"
 				}				
 				
 				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(rtnMsg)).Do(); err != nil {
