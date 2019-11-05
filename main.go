@@ -89,10 +89,10 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 						msgContent = strconv.Itoa(year) + msgContent
 					}
 					if (len(msgContent) == 7) {
-						taiwanYear := year - 1911
+						taiwanYear := 1911
 						taiwanYear, err = strconv.Atoi(msgContent[:3])
 						if err != nil {
-							msgContent = strconv.Itoa(taiwanYear + 1911) + msgContent[4:7]
+							msgContent = strconv.Itoa(taiwanYear + 1911) + msgContent[3:len(msgContent)]
 						}						
 					}
 					lmp, err = time.Parse("20060102", msgContent)
