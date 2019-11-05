@@ -95,7 +95,15 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					pWeek := strconv.Itoa(int(diffdays / 7))
 					pDays := strconv.Itoa(int(math.Mod(diffdays, 7)))
 					
-					rtnMsg = pWeek + "週" + pDays + "天，預產期為" + bday.Format("2006/01/02")
+					msg := ""
+					if (int(diffdays / 7) < 0) {
+						msg = "未來人？\n"
+					}
+					if (int(diffdays / 7) > 38) {
+						msg = "該生了吧？\n"
+					}
+
+					rtnMsg = msg + pWeek + "週" + pDays + "天\n預產期為" + bday.Format("2006/01/02")
 				}				
 				
 				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(rtnMsg)).Do(); err != nil {
