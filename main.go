@@ -85,8 +85,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					input := time.Now().UTC()
 					year := timeStamp.Year()
 
-					if (len(msgContent) == 4)
-					{
+					if (len(msgContent) == 4) {
 						msgContent = year + msgContent
 					}
 					input, err = time.Parse("20060102", msgContent)
