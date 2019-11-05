@@ -121,9 +121,9 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 
 					sBDay := bday.Format("2006/01/02")
 					if (isTaiwanYear) {
-						sBday = sBday[1:len(sBDay)]
+						sBday = sBDay[1:len(sBDay)]
 					}
-					
+
 					rtnMsg = msg + "已妊娠 " + pWeek + "週 " + pDays + "天\n預產期為" + sBDay
 				}				
 				
