@@ -82,7 +82,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					msgContent = strings.Trim(msgContent, "　")
 					
 					timeStamp := time.Now().UTC()
-					input := time.Now().UTC()
+					lmp := time.Now().UTC()
 					year := timeStamp.Year()
 
 					if (len(msgContent) == 4) {
