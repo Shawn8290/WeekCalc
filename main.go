@@ -89,7 +89,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 						msgContent = strconv.Itoa(year) + msgContent
 					}
 					lmp, err = time.Parse("20060102", msgContent)
-					bday := input.AddDate(0, 9, 7)
+					bday := lmp.AddDate(0, 9, 7)
 					
 					diffdays := timeStamp.Sub(lmp).Hours() / 24
 					pWeek := strconv.Itoa(int(diffdays / 7))
