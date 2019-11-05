@@ -119,7 +119,12 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 						msg = "該生了吧？\n"
 					}
 
-					rtnMsg = msg + "已妊娠 " + pWeek + "週 " + pDays + "天\n預產期為" + bday.Format("2006/01/02")
+					sBDay := bday.Format("2006/01/02")
+					if (isTaiwanYear) {
+						sBday = sBday[1:len(sBDay)]
+					}
+					
+					rtnMsg = msg + "已妊娠 " + pWeek + "週 " + pDays + "天\n預產期為" + sBDay
 				}				
 				
 				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(rtnMsg)).Do(); err != nil {
