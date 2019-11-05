@@ -81,24 +81,32 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					msgContent = strings.Trim(msgContent, " ")
 					msgContent = strings.Trim(msgContent, "　")
 					
-					timeStamp := time.Now().UTC()
+					today := time.Now().UTC()
+					input := time.Now().UTC()
 					lmp := time.Now().UTC()
-					year := timeStamp.Year()
+					year := today.Year()
 
 					if (len(msgContent) == 4) {
 						msgContent = strconv.Itoa(year) + msgContent
 					}
+
 					if (len(msgContent) == 7) {
-						taiwanYear := 1911
-						taiwanYear, err = strconv.Atoi(msgContent[:3])
-						if err != nil {
-							msgContent = strconv.Itoa(taiwanYear + 1911) + msgContent[3:len(msgContent)]
-						}						
+						msgContent = "0" + msgContent					
 					}
-					lmp, err = time.Parse("20060102", msgContent)
+
+					input, err = time.Parse("20060102", msgContent)
+
+					// 民國轉西元
+					if (len(msgContent) == 7) {
+						lmp = input.AddDate(1911, 0, 0)
+					} else {
+						lmp = input
+					}
+
+					// 預產期
 					bday := lmp.AddDate(0, 9, 7)
 					
-					diffdays := timeStamp.Sub(lmp).Hours() / 24
+					diffdays := today.Sub(lmp).Hours() / 24
 					pWeek := strconv.Itoa(int(diffdays / 7))
 					pDays := strconv.Itoa(int(math.Mod(diffdays, 7)))
 					
