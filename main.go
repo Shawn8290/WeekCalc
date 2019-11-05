@@ -79,12 +79,11 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					var msgContent string = strings.ToUpper(message.Text)		
 					msgContent = strings.Trim(msgContent, " ")
 					msgContent = strings.Trim(msgContent, "　")
-					year := msgContent[0: 3]
-					month := msgContent[4: 5]
-					day := msgContent[6: 7]
+					
 					timeStamp := time.Now().UTC()
 					lmp := time.Now().UTC()
-					lmp, err = time.Parse("2006-01-02", year + "-" + month + "-" + day)
+
+					lmp, err = time.Parse("20060102", msgContent)
 					lmp.AddDate(0, 0, 14)
 					/*
 					diffdays := timeStamp.Sub(lmp).Hours() / 24
