@@ -107,24 +107,21 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 						lmp = input
 					}					
 					
-					diffdays := today.Sub(lmp).Hours() / 24
-					pWeek := strconv.Itoa(int(diffdays / 7))
-					pDays := strconv.Itoa(int(math.Mod(diffdays, 7)))
+					pDiffdays := today.Sub(lmp).Hours() / 24
+					pWeek := strconv.Itoa(int(pDiffdays / 7))
+					pDays := strconv.Itoa(int(math.Mod(pDiffdays, 7)))
 					
-					msg := ""
-					if (int(diffdays / 7) < 0) {
-						msg = "未來人？\n"
-					}
-					if (int(diffdays / 7) > 40) {
-						msg = "該生了吧？\n"
-					}
+					bDiffdays := lmp.Sub(today).Hours() / 24
+					bWeek := strconv.Itoa(int(bDiffdays / 7))
+					bDays := strconv.Itoa(int(math.Mod(bDiffdays, 7)))
+				
 
 					sBDay := bday.Format("2006/01/02")
 					if (isTaiwanYear) {
 						sBDay = sBDay[1:len(sBDay)]
 					}
 
-					rtnMsg = msg + "已妊娠 " + pWeek + "週 " + pDays + "天\n預產期為" + sBDay
+					rtnMsg = "最後一次月經：" + msgContent + "\n已妊娠 " + pWeek + "週 " + pDays + "天\n預產期為" + sBDay + "\n預產期：" + msgContent + "\n已妊娠 " + bWeek + "週 " + bDays + "天"
 				}				
 				
 				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(rtnMsg)).Do(); err != nil {
