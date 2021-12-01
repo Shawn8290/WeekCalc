@@ -108,33 +108,27 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					}					
 					
 					pDiffdays := today.Sub(lmp).Hours() / 24
-					pWeek := strconv.Itoa(int(pDiffdays / 7))
-					pDays := strconv.Itoa(int(math.Mod(pDiffdays, 7)))
-					
-					sBDay := bday.Format("2006/01/02")
-					if (isTaiwanYear) {
-						sBDay = sBDay[1:len(sBDay)]
-					}
-					
-					var pMsg string = ""	
 					if (pDiffdays > 0) {
-						pMsg = "輸入的是最後一次月經：\n已妊娠 " + pWeek + "週 " + pDays + "天\n預產期為" + sBDay
-					}
-					
-					//*****輸入的是預產期，算週數*****//
-					bDiffdays := 280 - (lmp.Sub(today).Hours() / 24)
-					bWeek := strconv.Itoa(int(bDiffdays / 7))
-					bDays := strconv.Itoa(int(math.Mod(bDiffdays, 7)))
-					
-					var bMsg string = ""	
-					if (bDiffdays < 300) {
-						if (len(pMsg) > 0) {
-							bMsg = "\n====================\n"
-						}
-						bMsg = bMsg + "輸入的是預產期：\n已妊娠 " + bWeek + "週 " + bDays + "天"
-					}
+						pWeek := strconv.Itoa(int(pDiffdays / 7))
+						pDays := strconv.Itoa(int(math.Mod(pDiffdays, 7)))
 
-					rtnMsg = pMsg + bMsg
+						sBDay := bday.Format("2006/01/02")
+						if (isTaiwanYear) {
+							sBDay = sBDay[1:len(sBDay)]
+						}
+						
+						rtnMsg = "輸入的是最後一次月經：\n已妊娠 " + pWeek + "週 " + pDays + "天\n預產期為" + sBDay
+					} else {
+						//*****輸入的是預產期，算週數*****//
+						bDiffdays := 280 - (lmp.Sub(today).Hours() / 24)
+						if (bDiffdays < 0) {
+							bDiffdays = 0 - bDiffdays + 280
+						}
+						bWeek := strconv.Itoa(int(bDiffdays / 7))
+						bDays := strconv.Itoa(int(math.Mod(bDiffdays, 7)))
+
+						rtnMsg = "輸入的是預產期：\n已妊娠 " + bWeek + "週 " + bDays + "天"
+					}
 				}				
 				
 				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(rtnMsg)).Do(); err != nil {
