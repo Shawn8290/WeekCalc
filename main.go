@@ -118,7 +118,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					
 					var pMsg string = ""	
 					if (pDiffdays > 0) {
-						pMsg := "輸入的是最後一次月經：\n已妊娠 " + pWeek + "週 " + pDays + "天\n預產期為" + sBDay
+						pMsg = "輸入的是最後一次月經：\n已妊娠 " + pWeek + "週 " + pDays + "天\n預產期為" + sBDay
 					}
 					
 					//*****輸入的是預產期，算週數*****//
@@ -129,9 +129,9 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					var bMsg string = ""	
 					if (bDiffdays < 300) {
 						if (len(pMsg) > 0) {
-							bMsg := "\n====================\n"
+							bMsg = "\n====================\n"
 						}
-						bMsg := bMsg + "輸入的是預產期：\n已妊娠 " + bWeek + "週 " + bDays + "天"
+						bMsg = bMsg + "輸入的是預產期：\n已妊娠 " + bWeek + "週 " + bDays + "天"
 					}
 
 					rtnMsg = pMsg + bMsg
