@@ -116,7 +116,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 						sBDay = sBDay[1:len(sBDay)]
 					}
 					
-					pMsg := ""
+					var pMsg string = ""	
 					if (pDiffdays > 0) {
 						pMsg := "輸入的是最後一次月經：\n已妊娠 " + pWeek + "週 " + pDays + "天\n預產期為" + sBDay
 					}
@@ -126,7 +126,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					bWeek := strconv.Itoa(int(bDiffdays / 7))
 					bDays := strconv.Itoa(int(math.Mod(bDiffdays, 7)))
 					
-					bMsg := ""
+					var bMsg string = ""	
 					if (bDiffdays < 300) {
 						if (len(pMsg) > 0) {
 							bMsg := "\n====================\n"
