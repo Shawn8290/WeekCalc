@@ -98,7 +98,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 
 					input, err = time.Parse("20060102", msgContent)
 
-					// 預產期
+					//輸入的是最後一次月經，算預產期
 					bday := input.AddDate(0, 9, 7)
 					// 民國轉西元
 					if (isTaiwanYear) {
@@ -111,7 +111,8 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					pWeek := strconv.Itoa(int(pDiffdays / 7))
 					pDays := strconv.Itoa(int(math.Mod(pDiffdays, 7)))
 					
-					bDiffdays := lmp.Sub(today).Hours() / 24
+					//輸入的是預產期，算週數					
+					bDiffdays := 280 - (lmp.Sub(today).Hours() / 24)
 					bWeek := strconv.Itoa(int(bDiffdays / 7))
 					bDays := strconv.Itoa(int(math.Mod(bDiffdays, 7)))
 				
