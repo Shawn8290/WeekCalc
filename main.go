@@ -98,7 +98,14 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 
 					input, err = time.Parse("20060102", msgContent)
 					if err != nil {
-						rtnMsg = "嘿 安那"
+						msgs := [3]string{
+							"嘿",
+							"嘿 安那",
+							"可愛的人已經睡了",
+						}
+
+						idx := rand.New(rand.NewSource(time.Now().UnixNano())).Intn(len(msgs))
+						rtnMsg = msgs[idx]
 					} else {
 						//*****輸入的是最後一次月經，算預產期*****//
 						bday := input.AddDate(0, 9, 7)
