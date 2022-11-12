@@ -99,46 +99,45 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					input, err = time.Parse("20060102", msgContent)
 					if err != nil {
 						rtnMsg = "嘿 安那"
-						return
-					}
-
-					//*****輸入的是最後一次月經，算預產期*****//
-					bday := input.AddDate(0, 9, 7)
-					// 民國轉西元
-					if (isTaiwanYear) {
-						lmp = input.AddDate(1911, 0, 0)
 					} else {
-						lmp = input
-					}					
-					
-					pDiffdays := today.Sub(lmp).Hours() / 24
-					if (pDiffdays > 28) {
-						pWeek := strconv.Itoa(int(pDiffdays / 7))
-						pDays := strconv.Itoa(int(math.Mod(pDiffdays, 7)))
-
-						sBDay := bday.Format("2006/01/02")
+						//*****輸入的是最後一次月經，算預產期*****//
+						bday := input.AddDate(0, 9, 7)
+						// 民國轉西元
 						if (isTaiwanYear) {
-							sBDay = sBDay[1:len(sBDay)]
+							lmp = input.AddDate(1911, 0, 0)
+						} else {
+							lmp = input
+						}					
+
+						pDiffdays := today.Sub(lmp).Hours() / 24
+						if (pDiffdays > 28) {
+							pWeek := strconv.Itoa(int(pDiffdays / 7))
+							pDays := strconv.Itoa(int(math.Mod(pDiffdays, 7)))
+
+							sBDay := bday.Format("2006/01/02")
+							if (isTaiwanYear) {
+								sBDay = sBDay[1:len(sBDay)]
+							}
+
+							rtnMsg = "輸入的是最後一次月經：\n已妊娠 " + pWeek + "週 " + pDays + "天\n預產期為" + sBDay
+						} 
+
+						//*****輸入的是預產期，算週數*****//
+						bDiffdays := 280 - (lmp.Sub(today).Hours() / 24)
+						if (bDiffdays < 0) { //超過40週
+							bDiffdays = 0 - bDiffdays + 280
 						}
-						
-						rtnMsg = "輸入的是最後一次月經：\n已妊娠 " + pWeek + "週 " + pDays + "天\n預產期為" + sBDay
-					} 
-					
-					//*****輸入的是預產期，算週數*****//
-					bDiffdays := 280 - (lmp.Sub(today).Hours() / 24)
-					if (bDiffdays < 0) { //超過40週
-						bDiffdays = 0 - bDiffdays + 280
-					}
-					
-					if (bDiffdays < 308) { //44週以內才顯示
-						bWeek := strconv.Itoa(int(bDiffdays / 7))
-						bDays := strconv.Itoa(int(math.Mod(bDiffdays, 7)))
+
+						if (bDiffdays < 308) { //44週以內才顯示
+							bWeek := strconv.Itoa(int(bDiffdays / 7))
+							bDays := strconv.Itoa(int(math.Mod(bDiffdays, 7)))
 
 
-						if (len(rtnMsg) > 0) {
-							rtnMsg = rtnMsg + "\n===============\n"
+							if (len(rtnMsg) > 0) {
+								rtnMsg = rtnMsg + "\n===============\n"
+							}
+							rtnMsg = rtnMsg + "輸入的是預產期：\n已妊娠 " + bWeek + "週 " + bDays + "天"
 						}
-						rtnMsg = rtnMsg + "輸入的是預產期：\n已妊娠 " + bWeek + "週 " + bDays + "天"
 					}
 				}				
 				
