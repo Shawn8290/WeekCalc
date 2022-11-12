@@ -97,6 +97,10 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					}
 
 					input, err = time.Parse("20060102", msgContent)
+					if err != nil {
+						rtnMsg = "嘿 安那"
+						return
+					}
 
 					//*****輸入的是最後一次月經，算預產期*****//
 					bday := input.AddDate(0, 9, 7)
